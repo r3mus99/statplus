@@ -1,10 +1,13 @@
-import { createContext } from 'react';
-import { TableDataStore } from './TableDataStore';
-import { LoadingStore } from './LoadingStore';
+import { createContext } from "react";
+import { TableDataStore } from "./TableDataStore";
+import { LoaderStore } from "./LoaderStore";
+
+export const TABLE_DATA = "tableDataStore";
+export const LOADER = "loaderStore";
 
 export const stores = Object.freeze({
-    loadingStore: new LoadingStore(),
-    tableDataStore: new TableDataStore(),
+  loaderStore: new LoaderStore(),
+  tableDataStore: new TableDataStore(),
 });
 
 export const storesContext = createContext(stores);

@@ -30,4 +30,10 @@ export type ItemResponse = {
   dimension: { [key: string]: Dimension },
 };
 
+export type Options = {
+  label: string, // "np3106rr_dim1",
+  note: string, // "Klasifikácia zamestnaní (SKISCO-08) - triedy",
+  category: Map<string, string>, // "0": "Príslušníci ozbrojených síl",
+};
+
 // todo split into response, data and components props
