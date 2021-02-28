@@ -30,6 +30,6 @@ export class LoaderStore {
   }
 
   getDimToLoad(): string {
-    return this.hasDimsToLoad().pop();
+    return this.dimsToLoad.pop();
   }
 }
