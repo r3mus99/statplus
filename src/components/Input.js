@@ -3,23 +3,31 @@ import React from "react";
 import { observer } from "mobx-react-lite";
 import { TableDataStore } from "../store/TableDataStore";
 import { useStore } from "../store/Hooks";
-import { LOADER, TABLE_DATA } from "../store/Stores";
-import { LoaderStore } from "../store/LoaderStore";
+import { TABLE_DATA } from "../store/Stores";
+// import { LoaderStore } from "../store/LoaderStore";
 // load
 import { getData, getUrl } from "../api/LoadApi";
 import { toOptions } from "../api/Utils";
 // components
-import { Form } from "semantic-ui-react";
+
 // types
 import type { Dimension, OptionsResponse } from "../Types";
+import {
+    Button,
+    CheckPicker,
+    ControlLabel,
+    Form,
+    FormGroup,
+    SelectPicker,
+} from "rsuite";
 
 const Input = observer(() => {
     const tableData: TableDataStore = useStore(TABLE_DATA);
-    const loader: LoaderStore = useStore(LOADER);
+    // const loader: LoaderStore = useStore(LOADER);
 
     const options = tableData
         .getTables()
-        .map(({ href, label }) => ({ key: href, value: href, text: label }));
+        .map(({ href, label }) => ({ value: href, label: label }));
 
     let elements = []; // todo rename dims
     const selectedTable = tableData.getSelectedTableData();
@@ -38,27 +46,24 @@ const Input = observer(() => {
                     // });
                     options.category.forEach((v, k) =>
                         optionItems.push({
-                            key: k,
                             value: k,
-                            text: v,
+                            label: v,
                         })
                     );
                 }
 
                 return (
-                    <Form.Dropdown
-                        required
-                        label={d.note}
-                        placeholder="Vyber možnosti"
-                        fluid
-                        search
-                        multiple
-                        selection
-                        options={optionItems}
-                        onChange={(e, { value }) => {
-                            tableData.selectOptions(d.label, value);
-                        }}
-                    />
+                    <FormGroup>
+                        <ControlLabel>{d.note}</ControlLabel>
+                        <CheckPicker
+                            placeholder="Vyber možnosti"
+                            data={optionItems}
+                            block
+                            onSelect={(value: string) => {
+                                tableData.selectOptions(d.label, value);
+                            }}
+                        />
+                    </FormGroup>
                 );
             }
         );
@@ -66,29 +71,29 @@ const Input = observer(() => {
 
     return (
         <Form>
-            <Form.Dropdown
-                placeholder="Vyber tému"
-                fluid
-                search
-                selection
-                // disabled={loader.isLoading}
-                loading={loader.isLoading}
-                options={options}
-                onChange={(e, { value }) => {
-                    tableData.selectTable(value);
-                    tableData.clearSelectedOptions();
-                    tableData.getSelectedTableData().dimension.forEach((d) => {
-                        getUrl(d.href, (res: OptionsResponse) => {
-                            tableData.addOptions(toOptions(res));
-                        });
-                    });
-                }}
-            />
+            <FormGroup>
+                <SelectPicker
+                    placeholder="Vyber tému"
+                    data={options}
+                    block
+                    onSelect={(value: string) => {
+                        tableData.selectTable(value);
+                        tableData.clearSelectedOptions();
+                        tableData
+                            .getSelectedTableData()
+                            .dimension.forEach((d) => {
+                                getUrl(d.href, (res: OptionsResponse) => {
+                                    tableData.addOptions(toOptions(res));
+                                });
+                            });
+                    }}
+                />
+            </FormGroup>
             {elements}
-            <Form.Button
+            <Button
                 type="submit"
-                color="blue"
-                fluid
+                appearance="primary"
+                block
                 onClick={() => {
                     getData(
                         tableData.getSelectedTableId(),
@@ -100,7 +105,7 @@ const Input = observer(() => {
                 }}
             >
                 Načítaj
-            </Form.Button>
+            </Button>
         </Form>
     );
 });
