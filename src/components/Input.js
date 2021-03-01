@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 // store
 import { observer } from "mobx-react-lite";
 import { TableDataStore } from "../store/TableDataStore";
@@ -6,10 +6,10 @@ import { useStore } from "../store/Hooks";
 import { LOADER, TABLE_DATA } from "../store/Stores";
 import { LoaderStore } from "../store/LoaderStore";
 // load
-import { getUrl } from "../api/LoadApi";
+import { getData, getUrl } from "../api/LoadApi";
 import { toOptions } from "../api/Utils";
 // components
-import { Dropdown, Form, FormField, Label } from "semantic-ui-react";
+import { Form } from "semantic-ui-react";
 // types
 import type { Dimension, OptionsResponse } from "../Types";
 
@@ -26,7 +26,7 @@ const Input = observer(() => {
     if (!!selectedTable) {
         elements = selectedTable.dimension.map(
             (d: Dimension, index: number) => {
-                const labelId = `${d.label}${index}`;
+                // const labelId = `${d.label}${index}`;
                 const options = tableData.options.get(d.label);
                 const optionItems = [];
                 if (!!options) {
@@ -47,6 +47,7 @@ const Input = observer(() => {
 
                 return (
                     <Form.Dropdown
+                        required
                         label={d.note}
                         placeholder="Vyber možnosti"
                         fluid
@@ -75,6 +76,7 @@ const Input = observer(() => {
                 options={options}
                 onChange={(e, { value }) => {
                     tableData.selectTable(value);
+                    tableData.clearSelectedOptions();
                     tableData.getSelectedTableData().dimension.forEach((d) => {
                         getUrl(d.href, (res: OptionsResponse) => {
                             tableData.addOptions(toOptions(res));
@@ -83,6 +85,22 @@ const Input = observer(() => {
                 }}
             />
             {elements}
+            <Form.Button
+                type="submit"
+                color="blue"
+                fluid
+                onClick={() => {
+                    getData(
+                        tableData.getSelectedTableId(),
+                        tableData.getSelectedOptions(),
+                        () => {
+                            // todo show data
+                        }
+                    );
+                }}
+            >
+                Načítaj
+            </Form.Button>
         </Form>
     );
 });

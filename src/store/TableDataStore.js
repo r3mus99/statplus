@@ -34,7 +34,21 @@ export class TableDataStore {
         return this.tables.get(this.selectedTable);
     }
 
+    getSelectedTableId(): string | undefined {
+        return this.selectedTable
+            ? this.selectedTable.split("/")[6] // todo better solution?
+            : undefined;
+    }
+
     selectOptions(dim: string, options: string[]) {
         this.selectedOptions.set(dim, options);
+    }
+
+    clearSelectedOptions() {
+        this.selectedOptions.clear();
+    }
+
+    getSelectedOptions(): string[] {
+        return Array.from(this.selectedOptions.values());
     }
 }
