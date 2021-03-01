@@ -50,6 +50,14 @@ const App = observer(() => {
                                 <Input />
                             </Panel>
                         </FlexboxGrid.Item>
+                        <FlexboxGrid.Item
+                            componentClass={Col}
+                            colspan={24}
+                            md={16}
+                            lg={12}
+                        >
+                            <Panel bordered>{tableData.response}</Panel>
+                        </FlexboxGrid.Item>
                     </FlexboxGrid>
                 </Content>
             </Container>

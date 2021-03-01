@@ -4,14 +4,11 @@ import { observer } from "mobx-react-lite";
 import { TableDataStore } from "../store/TableDataStore";
 import { useStore } from "../store/Hooks";
 import { TABLE_DATA } from "../store/Stores";
-// import { LoaderStore } from "../store/LoaderStore";
+import { getTableGroup } from "../store/StoreUtils";
 // load
 import { getData, getUrl } from "../api/LoadApi";
 import { toOptions } from "../api/Utils";
 // components
-
-// types
-import type { Dimension, OptionsResponse } from "../Types";
 import {
     Button,
     CheckPicker,
@@ -20,14 +17,18 @@ import {
     FormGroup,
     SelectPicker,
 } from "rsuite";
+// types
+import type { Dimension, OptionsResponse } from "../Types";
 
 const Input = observer(() => {
     const tableData: TableDataStore = useStore(TABLE_DATA);
     // const loader: LoaderStore = useStore(LOADER);
 
-    const options = tableData
-        .getTables()
-        .map(({ href, label }) => ({ value: href, label: label }));
+    const options = tableData.getTables().map(({ href, label }) => ({
+        value: href,
+        label: label,
+        role: getTableGroup(href),
+    }));
 
     let elements = []; // todo rename dims
     const selectedTable = tableData.getSelectedTableData();
@@ -59,6 +60,7 @@ const Input = observer(() => {
                             placeholder="Vyber možnosti"
                             data={optionItems}
                             block
+                            searchable={false}
                             onSelect={(value: string) => {
                                 tableData.selectOptions(d.label, value);
                             }}
@@ -87,6 +89,32 @@ const Input = observer(() => {
                                 });
                             });
                     }}
+                    groupBy="role"
+                    renderMenuItem={(label, item) => {
+                        return (
+                            <div>
+                                <i className="rs-icon rs-icon-user" /> {label}
+                            </div>
+                        );
+                    }}
+                    renderMenuGroup={(label, item) => {
+                        return (
+                            <div>
+                                <i className="rs-icon rs-icon-group" /> {label}{" "}
+                                ({item.children.length})
+                            </div>
+                        );
+                    }}
+                    renderValue={(value, item) => {
+                        return (
+                            <div>
+                                <span style={{ color: "#575757" }}>
+                                    <i className="rs-icon rs-icon-user" />
+                                </span>{" "}
+                                {item.label}
+                            </div>
+                        );
+                    }}
                 />
             </FormGroup>
             {elements}
@@ -98,7 +126,8 @@ const Input = observer(() => {
                     getData(
                         tableData.getSelectedTableId(),
                         tableData.getSelectedOptions(),
-                        () => {
+                        (res) => {
+                            tableData.setResponse(JSON.stringify(res));
                             // todo show data
                         }
                     );

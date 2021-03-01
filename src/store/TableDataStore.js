@@ -1,6 +1,7 @@
 // import { action, observable } from 'mobx';
 import { makeAutoObservable } from "mobx";
 import { Table, Options } from "../Types";
+import { getTableId } from "./StoreUtils";
 
 // TODO loader store, isLoading, loading queue
 export class TableDataStore {
@@ -9,6 +10,8 @@ export class TableDataStore {
 
     selectedTable: string = ""; // todo zmenit z href na tableid
     selectedOptions: Map<string, string[]> = new Map();
+
+    response: string = "..."; // todo TEMP
 
     constructor() {
         makeAutoObservable(this);
@@ -36,7 +39,7 @@ export class TableDataStore {
 
     getSelectedTableId(): string | undefined {
         return this.selectedTable
-            ? this.selectedTable.split("/")[6] // todo better solution?
+            ? getTableId(this.selectedTable) // todo better solution?
             : undefined;
     }
 
@@ -50,5 +53,9 @@ export class TableDataStore {
 
     getSelectedOptions(): string[] {
         return Array.from(this.selectedOptions.values());
+    }
+
+    setResponse(res: string) {
+        this.response = res;
     }
 }
