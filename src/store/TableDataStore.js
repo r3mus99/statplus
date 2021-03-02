@@ -11,7 +11,7 @@ export class TableDataStore {
     selectedTable: string = ""; // todo zmenit z href na tableid
     selectedOptions: Map<string, string[]> = new Map();
 
-    response: string = "..."; // todo TEMP
+    response: any = []; // todo TEMP
 
     constructor() {
         makeAutoObservable(this);

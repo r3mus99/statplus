@@ -8,6 +8,7 @@ import { getTableGroup } from "../store/StoreUtils";
 // load
 import { getData, getUrl } from "../api/LoadApi";
 import { toOptions, toTableArray } from "../api/Utils";
+import JSONStat from "jsonstat-toolkit";
 // components
 import {
     Button,
@@ -128,9 +129,9 @@ const Input = observer(() => {
                         tableData.getSelectedOptions(),
                         (res) => {
                             tableData.setResponse(
-                                JSON.stringify(toTableArray(res))
+                                JSONStat(res).Dataset(0).toTable()
                             );
-                            // todo show data
+                            console.log(JSONStat(res).Dataset(0).toTable());
                         }
                     );
                 }}
