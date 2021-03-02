@@ -90,6 +90,10 @@ const Input = observer(() => {
                                 });
                             });
                     }}
+                    onClean={(_) => {
+                        tableData.selectTable(null);
+                        tableData.clearSelectedOptions();
+                    }}
                     groupBy="role"
                     renderMenuItem={(label, item) => {
                         return (
