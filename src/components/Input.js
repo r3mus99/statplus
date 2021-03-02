@@ -7,7 +7,7 @@ import { TABLE_DATA } from "../store/Stores";
 import { getTableGroup } from "../store/StoreUtils";
 // load
 import { getData, getUrl } from "../api/LoadApi";
-import { toOptions } from "../api/Utils";
+import { toOptions, toTableArray } from "../api/Utils";
 // components
 import {
     Button,
@@ -127,7 +127,9 @@ const Input = observer(() => {
                         tableData.getSelectedTableId(),
                         tableData.getSelectedOptions(),
                         (res) => {
-                            tableData.setResponse(JSON.stringify(res));
+                            tableData.setResponse(
+                                JSON.stringify(toTableArray(res))
+                            );
                             // todo show data
                         }
                     );

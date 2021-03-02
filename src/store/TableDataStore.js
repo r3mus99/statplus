@@ -1,12 +1,12 @@
 // import { action, observable } from 'mobx';
 import { makeAutoObservable } from "mobx";
-import { Table, Options } from "../Types";
+import { Dataset, Options } from "../Types";
 import { getTableId } from "./StoreUtils";
 
 // TODO loader store, isLoading, loading queue
 export class TableDataStore {
-    tables: Map<string, Table> = new Map(); // table data indexed by href (unique)
-    options: Map<string, Options> = new Map();
+    tables: Map<string, Dataset> = new Map(); // table data indexed by href (unique) todo rename DATASET
+    options: Map<string, Options> = new Map(); // todo rename DIMENSIONS
 
     selectedTable: string = ""; // todo zmenit z href na tableid
     selectedOptions: Map<string, string[]> = new Map();
@@ -17,11 +17,11 @@ export class TableDataStore {
         makeAutoObservable(this);
     }
 
-    setTables(map: Map<string, Table>) {
+    setTables(map: Map<string, Dataset>) {
         this.tables = map;
     }
 
-    getTables(): Table[] {
+    getTables(): Dataset[] {
         return Array.from(this.tables.values()); // not optimal, creates copy
     }
 
@@ -33,7 +33,7 @@ export class TableDataStore {
         this.selectedTable = table;
     }
 
-    getSelectedTableData(): Table | undefined {
+    getSelectedTableData(): Dataset | undefined {
         return this.tables.get(this.selectedTable);
     }
 

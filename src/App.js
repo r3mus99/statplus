@@ -14,6 +14,7 @@ import { toItemMap } from "./api/Utils";
 import Input from "./components/Input";
 import { Col, Container, Content, FlexboxGrid, Header, Panel } from "rsuite";
 import "rsuite/dist/styles/rsuite-default.css";
+import FixedColumnTable from "./components/FixedColumnTable";
 
 const App = observer(() => {
     const tableData: TableDataStore = useStore(TABLE_DATA);
@@ -57,6 +58,7 @@ const App = observer(() => {
                             lg={12}
                         >
                             <Panel bordered>{tableData.response}</Panel>
+                            <FixedColumnTable />
                         </FlexboxGrid.Item>
                     </FlexboxGrid>
                 </Content>
