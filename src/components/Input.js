@@ -7,7 +7,7 @@ import { TABLE_DATA } from "../store/Stores";
 import { getTableGroup } from "../store/StoreUtils";
 // load
 import { getData, getUrl } from "../api/LoadApi";
-import { toOptions, toTableArray } from "../api/Utils";
+import { toOptions } from "../api/Utils";
 import JSONStat from "jsonstat-toolkit";
 // components
 import {
@@ -20,6 +20,7 @@ import {
 } from "rsuite";
 // types
 import type { Dimension, OptionsResponse } from "../Types";
+import DimensionPicker from "./DimensionPicker";
 
 const Input = observer(() => {
     const tableData: TableDataStore = useStore(TABLE_DATA);
@@ -66,6 +67,7 @@ const Input = observer(() => {
                                 tableData.selectOptions(d.label, value);
                             }}
                         />
+                        <DimensionPicker dimension={d.label} />
                     </FormGroup>
                 );
             }

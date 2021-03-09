@@ -2,14 +2,14 @@ import React from "react";
 // store
 import { observer } from "mobx-react-lite";
 // components
-import { Column, Table } from "rsuite";
+import { Table } from "rsuite";
 import { TableDataStore } from "../store/TableDataStore";
 import { useStore } from "../store/Hooks";
 import { TABLE_DATA } from "../store/Stores";
 
 const FixedColumnTable = observer(() => {
     const tableData: TableDataStore = useStore(TABLE_DATA);
-    const { Column, HeaderCell, Cell, Pagination } = Table;
+    const { Column, HeaderCell, Cell } = Table;
 
     const cols =
         tableData.response &&
@@ -26,7 +26,7 @@ const FixedColumnTable = observer(() => {
     const rows = [];
     for (let i = 1; i < tableData.response.length; i++) {
         // todo
-        let row = [];
+        // let row = [];
         // tableData.response[0].forEach();
     }
 

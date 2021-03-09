@@ -36,7 +36,7 @@ export const toOptions = (optionsResponse: OptionsResponse): Options => {
 };
 
 export const toTableArray = (res: TableResponse) => {
-    const tableArray = [];
+    // const tableArray = [];
     const colId: string = res.role.time[0]; // todo cols array -> colIds
     const cols: Dimension2 = res.dimension[colId];
     const colNames: string[] = Object.keys(cols.category.index);
