@@ -1,11 +1,11 @@
 import React from "react";
 // store
 import { observer } from "mobx-react-lite";
+import { TABLE_DATA } from "../store/Stores";
+import { useStore } from "../store/Hooks";
+import { TableDataStore } from "../store/TableDataStore";
 // components
 import { Table } from "rsuite";
-import { TableDataStore } from "../store/TableDataStore";
-import { useStore } from "../store/Hooks";
-import { TABLE_DATA } from "../store/Stores";
 
 const FixedColumnTable = observer(() => {
     const tableData: TableDataStore = useStore(TABLE_DATA);

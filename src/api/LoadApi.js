@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const getCollection = (
     onSuccess,
-    onFinally,
+    onFinally = () => {},
     language: string = "sk"
 ) => {
     axios
@@ -24,7 +24,7 @@ export const getData = (
     options: string[],
     onSuccess: (res: any) => void,
     language: string = "sk",
-    type: string = 'json'
+    type: string = "json"
 ) => {
     // https://data.statistics.sk/api/v2/dataset/bv3002rr/SK0/2011/MIESTNOST_01/OBYVATEL_01?lang=sk&type=json
     axios

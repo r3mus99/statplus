@@ -1,14 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 // store
 import { useStore } from "./store/Hooks";
 import { observer } from "mobx-react-lite";
 import { TableDataStore } from "./store/TableDataStore";
-import { LoaderStore } from "./store/LoaderStore";
 import Loader from "./store/Loader";
-import { LOADER, TABLE_DATA } from "./store/Stores";
-// load
-import { getCollection } from "./api/LoadApi";
-import { toItemMap } from "./api/Utils";
+import { TABLE_DATA } from "./store/Stores";
 // components
 // import "./App.css";
 import Input from "./components/Input";
@@ -18,18 +14,6 @@ import FixedColumnTable from "./components/FixedColumnTable";
 
 const App = observer(() => {
     const tableData: TableDataStore = useStore(TABLE_DATA);
-    const loader: LoaderStore = useStore(LOADER);
-
-    useEffect(() => {
-        loader.setLoading();
-
-        getCollection(
-            ({ link: { item } }) => {
-                tableData.setTables(toItemMap(item));
-            },
-            () => loader.notLoading()
-        );
-    }, [tableData, loader]);
 
     return (
         <Loader>
