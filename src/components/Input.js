@@ -14,7 +14,7 @@ import DatasetPicker from "./DatasetPicker";
 import type { Dimension } from "../Types";
 // utils
 import JSONStat from "jsonstat-toolkit";
-import { tbrowser } from "jsonstat-suite";
+import * as JSONstatUtils from "jsonstat-suite";
 
 const Input = observer(() => {
     const tableData: TableDataStore = useStore(TABLE_DATA);
@@ -30,7 +30,7 @@ const Input = observer(() => {
             </FormGroup>
         ));
     }
-    var e;
+
     return (
         <Form>
             <FormGroup>
@@ -51,10 +51,14 @@ const Input = observer(() => {
                             tableData.datasetNote = dataset.note;
                             // console.log(dataset);
                             // console.log(dataset.toTable());
-                            // TODO TEST THIS
-                            tbrowser(JSONStat(dataset), e, {
-                                preset: "smaller",
-                            });
+                            // TODO USING REF!!
+                            JSONstatUtils.tbrowser(
+                                JSONStat(res),
+                                document.getElementById("tbrowser"),
+                                {
+                                    preset: "smaller",
+                                }
+                            );
                         }
                     );
                 }}

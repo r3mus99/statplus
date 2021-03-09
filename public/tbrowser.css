@@ -1,0 +1,120 @@
+.tbrowser {
+    border: 1px solid #ccc;
+}
+
+.tbrowser table {
+    width: 100%;
+}
+
+.tbrowser {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.tbrowser thead tr {
+    background-color: #3498ff;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.tbrowser th,
+.tbrowser td {
+    padding: 12px 15px;
+}
+
+.tbrowser tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.tbrowser tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.tbrowser tbody tr:last-of-type {
+    border-bottom: 2px solid #3498ff;
+}
+
+.tbrowser tbody tr.active-row {
+    font-weight: bold;
+    color: #3498ff;
+}
+
+/*.tbrowser caption, .tbrowser tfoot td {*/
+/*    text-align: left;*/
+/*    color: #fff;*/
+/*    background-color: #666;*/
+/*}*/
+/*.tbrowser legend {*/
+/*    color: #fff;*/
+/*}*/
+/*.tbrowser caption .label {*/
+/*    display: block;*/
+/*    padding: 3px 3px 8px 3px;*/
+/*    font-size: 14px;*/
+/*}*/
+/*.tbrowser caption form,*/
+/*.tbrowser tbody th {*/
+/*    white-space: nowrap;*/
+/*}*/
+/*.tbrowser caption strong {*/
+/*    font-weight: normal;*/
+/*    padding: 2px;*/
+/*    border: 1px solid #ddd;*/
+/*    color: #ddd;*/
+/*}*/
+/*.tbrowser select {*/
+/*    padding: 2px;*/
+/*}*/
+/*.tbrowser caption a {*/
+/*    cursor: pointer;*/
+/*    text-decoration: none;*/
+/*    color: #fff;*/
+/*    font-size: 26px;*/
+/*    font-weight: bold;*/
+/*    line-height: 0;*/
+/*    vertical-align: sub;*/
+/*}*/
+/*.tbrowser caption, .tbrowser th, .tbrowser td {*/
+/*    padding: 6px;*/
+/*}*/
+/*.tbrowser th {*/
+/*    text-align: left;*/
+/*    background-color: #ccc;*/
+/*}*/
+/*.tbrowser thead th {*/
+/*    text-align: center;*/
+/*}*/
+/*.tbrowser td {*/
+/*    text-align: right;*/
+/*    background-color: #eee;*/
+/*}*/
+/*.tbrowser fieldset {*/
+/*    padding: 10px;*/
+/*    margin-bottom: 10px;*/
+/*}*/
+/*.tbrowser p {*/
+/*    margin: 0 0 5px 4px;*/
+/*}*/
+/*.tbrowser p:last-of-type {*/
+/*    margin-bottom: 0;*/
+/*}*/
+/*.tbrowser tbody tr:hover th, .tbrowser tbody tr:hover td {*/
+/*    background-color: #bbb;*/
+/*}*/
+
+textarea {
+    box-sizing: border-box;
+    width: 100%;
+    height: 300px;
+    padding: 1em;
+    background-color: #ffe;
+    font-family: monospace;
+    font-size: 14px;
+    /*border-radius: 6px;*/
+}
