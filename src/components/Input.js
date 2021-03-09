@@ -8,14 +8,7 @@ import { TABLE_DATA } from "../store/Stores";
 import { getData } from "../api/LoadApi";
 import JSONStat from "jsonstat-toolkit";
 // components
-import {
-    Button,
-    CheckPicker,
-    ControlLabel,
-    Form,
-    FormGroup,
-    SelectPicker,
-} from "rsuite";
+import { Button, ControlLabel, Form, FormGroup } from "rsuite";
 import DimensionPicker from "./DimensionPicker";
 import DatasetPicker from "./DatasetPicker";
 // types
@@ -25,21 +18,15 @@ const Input = observer(() => {
     const tableData: TableDataStore = useStore(TABLE_DATA);
     // const loader: LoaderStore = useStore(LOADER);
 
-    let elements = []; // todo rename dims
+    let dimensions = [];
     const selectedTable = tableData.getSelectedTableData();
     if (!!selectedTable) {
-        elements = selectedTable.dimension.map(
-            (d: Dimension, index: number) => {
-                // const labelId = `${d.label}${index}`;
-
-                return (
-                    <FormGroup>
-                        <ControlLabel>{d.note}</ControlLabel>
-                        <DimensionPicker dimension={d.label} />
-                    </FormGroup>
-                );
-            }
-        );
+        dimensions = selectedTable.dimension.map((d: Dimension) => (
+            <FormGroup key={d.label}>
+                <ControlLabel>{d.note}</ControlLabel>
+                <DimensionPicker dimension={d.label} />
+            </FormGroup>
+        ));
     }
 
     return (
@@ -47,7 +34,7 @@ const Input = observer(() => {
             <FormGroup>
                 <DatasetPicker />
             </FormGroup>
-            {elements}
+            {dimensions}
             <Button
                 type="submit"
                 appearance="primary"
