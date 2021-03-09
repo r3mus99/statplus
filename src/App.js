@@ -41,7 +41,7 @@ const App = observer(() => {
                             md={16}
                             lg={12}
                         >
-                            <Panel bordered>{tableData.response}</Panel>
+                            <Panel bordered>{tableData.datasetNote}</Panel>
                             <FixedColumnTable />
                         </FlexboxGrid.Item>
                     </FlexboxGrid>

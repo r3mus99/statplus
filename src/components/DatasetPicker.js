@@ -10,6 +10,8 @@ import { getCollection, getUrl } from "../api/LoadApi";
 import { toItemMap, toOptions } from "../api/Utils";
 // components
 import { Icon, SelectPicker } from "rsuite";
+// utils
+import JSONStat from "jsonstat-toolkit";
 
 import type { CategoryResponse } from "../Types";
 
@@ -40,8 +42,8 @@ const DatasetPicker = observer(() => {
     //region handlers
     const handleOpen = () => {
         if (options.length === 0) {
-            getCollection(({ link: { item } }) =>
-                tableData.setDataset(toItemMap(item))
+            getCollection((res) =>
+                tableData.setDataset(toItemMap(JSONStat(res).Item()))
             );
         }
     };

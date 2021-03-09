@@ -6,13 +6,15 @@ import { useStore } from "../store/Hooks";
 import { TABLE_DATA } from "../store/Stores";
 // load
 import { getData } from "../api/LoadApi";
-import JSONStat from "jsonstat-toolkit";
 // components
 import { Button, ControlLabel, Form, FormGroup } from "rsuite";
 import DimensionPicker from "./DimensionPicker";
 import DatasetPicker from "./DatasetPicker";
 // types
 import type { Dimension } from "../Types";
+// utils
+import JSONStat from "jsonstat-toolkit";
+import { tbrowser } from "jsonstat-suite";
 
 const Input = observer(() => {
     const tableData: TableDataStore = useStore(TABLE_DATA);
@@ -28,7 +30,7 @@ const Input = observer(() => {
             </FormGroup>
         ));
     }
-
+    var e;
     return (
         <Form>
             <FormGroup>
@@ -44,10 +46,15 @@ const Input = observer(() => {
                         tableData.getSelectedDatasetId(),
                         tableData.getSelectedCategories(),
                         (res) => {
-                            tableData.setResponse(
-                                JSONStat(res).Dataset(0).toTable()
-                            );
-                            console.log(JSONStat(res).Dataset(0).toTable());
+                            const dataset = JSONStat(res).Dataset(0);
+                            tableData.setResponse(dataset.toTable());
+                            tableData.datasetNote = dataset.note;
+                            // console.log(dataset);
+                            // console.log(dataset.toTable());
+                            // TODO TEST THIS
+                            tbrowser(JSONStat(dataset), e, {
+                                preset: "smaller",
+                            });
                         }
                     );
                 }}

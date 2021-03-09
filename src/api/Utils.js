@@ -1,12 +1,10 @@
 import { ItemResponse, Category, CategoryResponse, Dataset } from "../Types";
 import type { Dimension2, TableResponse } from "../Types";
 
-export const toItemMap = (
-    itemResponse: ItemResponse[]
-): Map<string, Dataset> => {
+export const toItemMap = (items: ItemResponse[]): Map<string, Dataset> => {
     const map: Map<string, Dataset> = new Map();
 
-    for (const i of itemResponse) {
+    for (const i of items) {
         map.set(i.href, toItem(i));
     }
 

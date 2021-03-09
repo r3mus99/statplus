@@ -10,6 +10,7 @@ export class TableDataStore {
     selectedDataset: string = "";
     selectedCategories: Map<string, string[]> = new Map();
 
+    datasetNote: string = "";
     response: any = []; // todo TEMP
 
     constructor() {
@@ -54,7 +55,7 @@ export class TableDataStore {
         return Array.from(this.selectedCategories.values());
     }
 
-    setResponse(res: string) {
+    setResponse(res: any) {
         this.response = res;
     }
 }

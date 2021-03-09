@@ -11,23 +11,20 @@ const FixedColumnTable = observer(() => {
     const tableData: TableDataStore = useStore(TABLE_DATA);
     const { Column, HeaderCell, Cell } = Table;
 
-    const cols =
-        tableData.response &&
-        tableData.response[0] &&
-        tableData.response[0].map((colId) => {
-            return (
-                <Column width={200}>
-                    <HeaderCell>{colId}</HeaderCell>
-                    <Cell dataKey={colId} />
-                </Column>
-            );
-        });
+    let cols: string[] = [];
+    if (tableData.response && tableData.response[0]) {
+        cols = tableData.response[0];
+    }
 
     const rows = [];
-    for (let i = 1; i < tableData.response.length; i++) {
-        // todo
-        // let row = [];
-        // tableData.response[0].forEach();
+    if (!!cols) {
+        for (let i = 1; i < tableData.response.length; i++) {
+            const rowData: string[] = tableData.response[i];
+
+            let row = {};
+            rows.push(row);
+            cols.forEach((col, i) => (row[col] = rowData[i]));
+        }
     }
 
     return (
@@ -39,7 +36,12 @@ const FixedColumnTable = observer(() => {
                     console.log(data);
                 }}
             >
-                {cols}
+                {cols.map((id) => (
+                    <Column key={id}>
+                        <HeaderCell>{id}</HeaderCell>
+                        <Cell dataKey={id} />
+                    </Column>
+                ))}
             </Table>
         </div>
     );

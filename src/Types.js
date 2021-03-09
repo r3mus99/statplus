@@ -32,7 +32,7 @@ export type Dataset = {
 };
 
 export type ItemResponse = {
-    class: string,
+    class: string, // "dataset"
     href: string,
     label: string,
     update: string,
