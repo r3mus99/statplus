@@ -1,4 +1,4 @@
-export type OptionsResponse = {
+export type CategoryResponse = {
     version: string, // "2.0",
     class: string, // "dimension",
     label: string, // "np3106rr_dim1",
@@ -13,7 +13,7 @@ export type Dimension = {
     label: string, // nuts13
     note: string, // 0 SR + Oblasti + Kraje
     href: string, // https://data.statistics.sk/api/v2/dimension/bv3001rr/nuts13?lang=sk
-    elements?: OptionsResponse, // todo change type
+    elements?: CategoryResponse, // todo change type
 };
 
 export type Dimension2 = {
@@ -39,7 +39,7 @@ export type ItemResponse = {
     dimension: { [key: string]: Dimension },
 };
 
-export type Options = {
+export type Category = {
     label: string, // "np3106rr_dim1",
     note: string, // "Klasifikácia zamestnaní (SKISCO-08) - triedy",
     category: Map<string, string>, // "0": "Príslušníci ozbrojených síl",

@@ -1,15 +1,14 @@
 // import { action, observable } from 'mobx';
 import { makeAutoObservable } from "mobx";
-import { Dataset, Options } from "../Types";
-import { getTableId } from "./StoreUtils";
+import { Dataset, Category } from "../Types";
+import { getDatasetId } from "./StoreUtils";
 
-// TODO loader store, isLoading, loading queue
 export class TableDataStore {
-    tables: Map<string, Dataset> = new Map(); // table data indexed by href (unique) todo rename DATASET
-    options: Map<string, Options> = new Map(); // todo rename DIMENSIONS
+    dataset: Map<string, Dataset> = new Map(); // table data indexed by href (unique)
+    categories: Map<string, Category> = new Map();
 
-    selectedTable: string = ""; // todo zmenit z href na tableid
-    selectedOptions: Map<string, string[]> = new Map();
+    selectedDataset: string = "";
+    selectedCategories: Map<string, string[]> = new Map();
 
     response: any = []; // todo TEMP
 
@@ -17,42 +16,42 @@ export class TableDataStore {
         makeAutoObservable(this);
     }
 
-    setTables(map: Map<string, Dataset>) {
-        this.tables = map;
+    setDataset(map: Map<string, Dataset>) {
+        this.dataset = map;
     }
 
-    getTables(): Dataset[] {
-        return Array.from(this.tables.values()); // not optimal, creates copy
+    getDataset(): Dataset[] {
+        return Array.from(this.dataset.values()); // not optimal, creates copy
     }
 
-    addOptions(o: Options) {
-        this.options.set(o.label, o);
+    addCategories(o: Category) {
+        this.categories.set(o.label, o);
     }
 
-    selectTable(table: string) {
-        this.selectedTable = table;
+    selectDataset(table: string) {
+        this.selectedDataset = table;
     }
 
-    getSelectedTableData(): Dataset | undefined {
-        return this.tables.get(this.selectedTable);
+    getSelectedDataset(): Dataset | undefined {
+        return this.dataset.get(this.selectedDataset);
     }
 
-    getSelectedTableId(): string | undefined {
-        return this.selectedTable
-            ? getTableId(this.selectedTable) // todo better solution?
+    getSelectedDatasetId(): string | undefined {
+        return this.selectedDataset
+            ? getDatasetId(this.selectedDataset)
             : undefined;
     }
 
     selectOptions(dim: string, options: string[]) {
-        this.selectedOptions.set(dim, options);
+        this.selectedCategories.set(dim, options);
     }
 
     clearSelectedOptions() {
-        this.selectedOptions.clear();
+        this.selectedCategories.clear();
     }
 
-    getSelectedOptions(): string[] {
-        return Array.from(this.selectedOptions.values());
+    getSelectedCategories(): string[] {
+        return Array.from(this.selectedCategories.values());
     }
 
     setResponse(res: string) {

@@ -1,5 +1,5 @@
 const tableGroups = {
-    // todo https://data.statistics.sk/api/index.php
+    // https://data.statistics.sk/api/index.php
     om: "Demografia a sociálne štatistiky - Obyvateľstvo",
     pr: "Demografia a sociálne štatistiky - Práca",
     np: "Demografia a sociálne štatistiky - Náklady práce",
@@ -18,14 +18,29 @@ const tableGroups = {
         "Makroekonomické štatistiky - Konjunkturálne prieskumy a spotrebiteľské názory",
     og: "Podnikové štatistiky - Organizačná štatistika",
     pl: "Odvetvové štatistiky - Poľnohospodárstvo, lesníctvo a rybárstvo",
+    pm: "Odvetvové štatistiky - Priemysel",
+    st: "Odvetvové štatistiky - Stavebníctvo",
+    do: "Odvetvové štatistiky - Doprava a poštové služby",
+    cr: "Odvetvové štatistiky - Cestovný ruch",
+    ob: "Odvetvové štatistiky - Obchod a stravovacie služby",
+    ik: "Odvetvové štatistiky - Informácie a komunikácia",
+    ts: "Odvetvové štatistiky - Vybrané trhové služby",
+    zp: "Životné prostredie",
+    ra: "Indikátory - Indikátory rodovej rovnosti",
+    kz: "Indikátory - Indikátor kvality života",
+    en: "Viacstranné štatistiky - Energetika",
+    vh: "Viacstranné štatistiky - Vodné hospodárstvo",
+    vt: "Viacstranné štatistiky - Veda, technika a inovácie",
 };
 
-export function getTableId(href: string): string {
+// todo better solution?
+export function getDatasetId(href: string): string {
     return href.split("/")[6];
 }
 
+// todo better solution?
 export function getTableGroup(href: string): string {
-    const groupId: string = getTableId(href).substr(0, 2);
+    const groupId: string = getDatasetId(href).substr(0, 2);
     const name: string = tableGroups[groupId];
     return !!name ? name : groupId;
 }

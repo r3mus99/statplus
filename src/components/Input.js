@@ -19,7 +19,7 @@ const Input = observer(() => {
     // const loader: LoaderStore = useStore(LOADER);
 
     let dimensions = [];
-    const selectedTable = tableData.getSelectedTableData();
+    const selectedTable = tableData.getSelectedDataset();
     if (!!selectedTable) {
         dimensions = selectedTable.dimension.map((d: Dimension) => (
             <FormGroup key={d.label}>
@@ -41,8 +41,8 @@ const Input = observer(() => {
                 block
                 onClick={() => {
                     getData(
-                        tableData.getSelectedTableId(),
-                        tableData.getSelectedOptions(),
+                        tableData.getSelectedDatasetId(),
+                        tableData.getSelectedCategories(),
                         (res) => {
                             tableData.setResponse(
                                 JSONStat(res).Dataset(0).toTable()

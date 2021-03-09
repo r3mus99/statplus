@@ -12,7 +12,7 @@ const DimensionPicker = observer(({ dimension }) => {
     const [checkAll, setCheckAll] = useState(false);
     const [value, setValue] = useState(false);
 
-    const options = tableData.options.get(dimension);
+    const options = tableData.categories.get(dimension);
     const optionItems = [];
     if (!!options) {
         options.category.forEach((v, k) =>
@@ -43,6 +43,17 @@ const DimensionPicker = observer(({ dimension }) => {
         setCheckAll(checked);
     };
 
+    const footer = () => (
+        <div style={{ borderTop: "1px solid #e5e5e5" }}>
+            <Checkbox
+                indeterminate={indeterminate}
+                checked={checkAll}
+                onChange={handleCheckAll}
+            >
+                Vybrať všetko
+            </Checkbox>
+        </div>
+    );
     return (
         <CheckPicker
             data={optionItems}
@@ -51,17 +62,7 @@ const DimensionPicker = observer(({ dimension }) => {
             block
             onChange={handleChange}
             searchable={false}
-            renderExtraFooter={() => (
-                <div style={{ borderTop: "1px solid #e5e5e5" }}>
-                    <Checkbox
-                        indeterminate={indeterminate}
-                        checked={checkAll}
-                        onChange={handleCheckAll}
-                    >
-                        Vybrať všetko
-                    </Checkbox>
-                </div>
-            )}
+            renderExtraFooter={footer}
         />
     );
 });

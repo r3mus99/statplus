@@ -1,4 +1,4 @@
-import { ItemResponse, Options, OptionsResponse, Dataset } from "../Types";
+import { ItemResponse, Category, CategoryResponse, Dataset } from "../Types";
 import type { Dimension2, TableResponse } from "../Types";
 
 export const toItemMap = (
@@ -21,7 +21,7 @@ export const toItem = (itemResponse: ItemResponse): Dataset => {
     };
 };
 
-export const toOptions = (optionsResponse: OptionsResponse): Options => {
+export const toOptions = (optionsResponse: CategoryResponse): Category => {
     const label: string = optionsResponse.label;
     const note: string = optionsResponse.note;
     const category: Map<string, string> = new Map();

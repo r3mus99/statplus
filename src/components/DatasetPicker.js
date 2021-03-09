@@ -11,7 +11,7 @@ import { toItemMap, toOptions } from "../api/Utils";
 // components
 import { Icon, SelectPicker } from "rsuite";
 
-import type { OptionsResponse } from "../Types";
+import type { CategoryResponse } from "../Types";
 
 const Spinner = ({ text }) => {
     return (
@@ -31,7 +31,7 @@ const Spinner = ({ text }) => {
 const DatasetPicker = observer(() => {
     const tableData: TableDataStore = useStore(TABLE_DATA);
 
-    const options = tableData.getTables().map(({ href, label }) => ({
+    const options = tableData.getDataset().map(({ href, label }) => ({
         value: href,
         label: label,
         role: getTableGroup(href),
@@ -41,23 +41,23 @@ const DatasetPicker = observer(() => {
     const handleOpen = () => {
         if (options.length === 0) {
             getCollection(({ link: { item } }) =>
-                tableData.setTables(toItemMap(item))
+                tableData.setDataset(toItemMap(item))
             );
         }
     };
 
     const handleSelect = (value: string) => {
-        tableData.selectTable(value);
+        tableData.selectDataset(value);
         tableData.clearSelectedOptions();
-        tableData.getSelectedTableData().dimension.forEach((d) => {
-            getUrl(d.href, (res: OptionsResponse) => {
-                tableData.addOptions(toOptions(res));
+        tableData.getSelectedDataset().dimension.forEach((d) => {
+            getUrl(d.href, (res: CategoryResponse) => {
+                tableData.addCategories(toOptions(res));
             });
         });
     };
 
     const handleClean = (_) => {
-        tableData.selectTable(null);
+        tableData.selectDataset(null);
         tableData.clearSelectedOptions();
     };
     //endregion handlers
