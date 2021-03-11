@@ -8,10 +8,11 @@ import { TABLE_DATA } from "./store/Stores";
 // components
 // import "./App.css";
 import Input from "./components/dataInput/Input";
-import { Col, Container, Content, FlexboxGrid, Header, Panel } from "rsuite";
+import { Container, Content, FlexboxGrid, Header, Panel } from "rsuite";
 import "rsuite/dist/styles/rsuite-default.css";
 import FixedColumnTable from "./components/dataShow/FixedColumnTable";
 import Result from "./components/dataShow/Result";
+import ResponsiveItem from "./components/ResponsiveItem";
 
 const App = observer(() => {
     const tableData: TableDataStore = useStore(TABLE_DATA);
@@ -26,22 +27,12 @@ const App = observer(() => {
                 </FlexboxGrid>
                 <Content>
                     <FlexboxGrid justify="center">
-                        <FlexboxGrid.Item
-                            componentClass={Col}
-                            colspan={24}
-                            md={16}
-                            lg={12}
-                        >
+                        <ResponsiveItem size={2}>
                             <Panel bordered>
                                 <Input />
                             </Panel>
-                        </FlexboxGrid.Item>
-                        <FlexboxGrid.Item
-                            componentClass={Col}
-                            colspan={24}
-                            md={16}
-                            lg={12}
-                        >
+                        </ResponsiveItem>
+                        <ResponsiveItem size={2}>
                             <Panel bordered>
                                 {tableData.getResponseNote()}
                             </Panel>
@@ -49,7 +40,7 @@ const App = observer(() => {
                                 <Result />
                             </Panel>
                             <FixedColumnTable />
-                        </FlexboxGrid.Item>
+                        </ResponsiveItem>
                     </FlexboxGrid>
                 </Content>
             </Container>

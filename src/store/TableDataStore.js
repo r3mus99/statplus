@@ -5,10 +5,10 @@ import { getDatasetId } from "./StoreUtils";
 
 export class TableDataStore {
     dataset: Map<string, Dataset> = new Map(); // table data indexed by href (unique)
-    categories: Map<string, Category> = new Map();
+    dimensions: Map<string, Category> = new Map();
 
     selectedDataset: string = "";
-    selectedCategories: Map<string, string[]> = new Map();
+    selectedDimensions: Map<string, string[]> = new Map();
 
     response: any = undefined; // todo TEMP
 
@@ -24,8 +24,16 @@ export class TableDataStore {
         return Array.from(this.dataset.values()); // not optimal, creates copy
     }
 
-    addCategories(o: Category) {
-        this.categories.set(o.label, o);
+    addDimensions(o: Category) {
+        this.dimensions.set(o.label, o);
+    }
+
+    getDimensionLabel(dimensionId: string) {
+        if (this.dimensions.has(dimensionId)) {
+            return this.dimensions.get(dimensionId).note;
+        } else {
+            return dimensionId;
+        }
     }
 
     selectDataset(table: string) {
@@ -42,16 +50,16 @@ export class TableDataStore {
             : undefined;
     }
 
-    selectOptions(dim: string, options: string[]) {
-        this.selectedCategories.set(dim, options);
+    selectDimension(dim: string, options: string[]) {
+        this.selectedDimensions.set(dim, options);
     }
 
-    clearSelectedOptions() {
-        this.selectedCategories.clear();
+    clearSelectedDimensions() {
+        this.selectedDimensions.clear();
     }
 
-    getSelectedCategories(): string[] {
-        return Array.from(this.selectedCategories.values());
+    getSelectedDimensions(): string[] {
+        return Array.from(this.selectedDimensions.values());
     }
 
     setResponse(res: any) {

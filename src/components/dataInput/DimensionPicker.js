@@ -12,7 +12,7 @@ const DimensionPicker = observer(({ dimension }) => {
     const [checkAll, setCheckAll] = useState(false);
     const [value, setValue] = useState(false);
 
-    const options = tableData.categories.get(dimension);
+    const options = tableData.dimensions.get(dimension);
     const optionItems = [];
     if (!!options) {
         options.category.forEach((v, k) =>
@@ -27,7 +27,7 @@ const DimensionPicker = observer(({ dimension }) => {
 
     const handleChange = (value) => {
         // update store
-        tableData.selectOptions(dimension, value);
+        tableData.selectDimension(dimension, value);
         // update state
         setValue(value);
         setIndeterminate(value.length > 0 && value.length < values.length);
@@ -36,7 +36,7 @@ const DimensionPicker = observer(({ dimension }) => {
 
     const handleCheckAll = (value, checked) => {
         // update store
-        tableData.selectOptions(dimension, checked ? values : []);
+        tableData.selectDimension(dimension, checked ? values : []);
         // update state
         setValue(checked ? values : []);
         setIndeterminate(false);

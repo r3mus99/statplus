@@ -50,17 +50,17 @@ const DatasetPicker = observer(() => {
 
     const handleSelect = (value: string) => {
         tableData.selectDataset(value);
-        tableData.clearSelectedOptions();
+        tableData.clearSelectedDimensions();
         tableData.getSelectedDataset().dimension.forEach((d) => {
             getUrl(d.href, (res: CategoryResponse) => {
-                tableData.addCategories(toOptions(res));
+                tableData.addDimensions(toOptions(res));
             });
         });
     };
 
     const handleClean = (_) => {
         tableData.selectDataset(null);
-        tableData.clearSelectedOptions();
+        tableData.clearSelectedDimensions();
     };
     //endregion handlers
 

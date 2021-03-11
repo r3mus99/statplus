@@ -27,7 +27,7 @@ const LoadButton = observer(() => {
                 setLoading(true);
                 getData(
                     tableData.getSelectedDatasetId(),
-                    tableData.getSelectedCategories(),
+                    tableData.getSelectedDimensions(),
                     (res) => {
                         setLoading(false);
                         const dataset = JSONStat(res).Dataset(0);
