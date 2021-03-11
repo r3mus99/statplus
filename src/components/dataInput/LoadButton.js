@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // load
 import { getData } from "../../api/LoadApi";
 // store
@@ -15,16 +15,21 @@ import * as JSONstatUtils from "jsonstat-suite";
 const LoadButton = observer(() => {
     const tableData: TableDataStore = useStore(TABLE_DATA);
 
+    const [isLoading, setLoading] = useState(false);
+
     return (
         <Button
             type="submit"
             appearance="primary"
             block
+            loading={isLoading}
             onClick={() => {
+                setLoading(true);
                 getData(
                     tableData.getSelectedDatasetId(),
                     tableData.getSelectedCategories(),
                     (res) => {
+                        setLoading(false);
                         const dataset = JSONStat(res).Dataset(0);
                         tableData.setResponse(dataset);
                         // console.log(dataset);
