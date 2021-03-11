@@ -1,19 +1,19 @@
 import React from "react";
 // store
 import { observer } from "mobx-react-lite";
-import { TableDataStore } from "../store/TableDataStore";
-import { useStore } from "../store/Hooks";
-import { TABLE_DATA } from "../store/Stores";
-import { getTableGroup } from "../store/StoreUtils";
+import { TableDataStore } from "../../store/TableDataStore";
+import { useStore } from "../../store/Hooks";
+import { TABLE_DATA } from "../../store/Stores";
+import { getTableGroup } from "../../store/StoreUtils";
 // load
-import { getCollection, getUrl } from "../api/LoadApi";
-import { toItemMap, toOptions } from "../api/Utils";
+import { getCollection, getUrl } from "../../api/LoadApi";
+import { toItemMap, toOptions } from "../../api/Utils";
 // components
 import { Icon, SelectPicker } from "rsuite";
 // utils
 import JSONStat from "jsonstat-toolkit";
 
-import type { CategoryResponse } from "../Types";
+import type { CategoryResponse } from "../../Types";
 
 const Spinner = ({ text }) => {
     return (
@@ -36,7 +36,7 @@ const DatasetPicker = observer(() => {
     const options = tableData.getDataset().map(({ href, label }) => ({
         value: href,
         label: label,
-        role: getTableGroup(href),
+        group: getTableGroup(href),
     }));
 
     //region handlers
@@ -109,7 +109,7 @@ const DatasetPicker = observer(() => {
             onOpen={handleOpen}
             onSelect={handleSelect}
             onClean={handleClean}
-            groupBy="role"
+            groupBy="group"
             renderMenu={menu}
             renderMenuItem={menuItem}
             renderMenuGroup={menuGroup}

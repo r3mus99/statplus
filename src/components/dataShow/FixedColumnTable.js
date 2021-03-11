@@ -1,9 +1,9 @@
 import React from "react";
 // store
 import { observer } from "mobx-react-lite";
-import { TABLE_DATA } from "../store/Stores";
-import { useStore } from "../store/Hooks";
-import { TableDataStore } from "../store/TableDataStore";
+import { TABLE_DATA } from "../../store/Stores";
+import { useStore } from "../../store/Hooks";
+import { TableDataStore } from "../../store/TableDataStore";
 // components
 import { Table } from "rsuite";
 
@@ -11,15 +11,18 @@ const FixedColumnTable = observer(() => {
     const tableData: TableDataStore = useStore(TABLE_DATA);
     const { Column, HeaderCell, Cell } = Table;
 
+    const table = tableData.getResponseTable();
+
     let cols: string[] = [];
-    if (tableData.response && tableData.response[0]) {
-        cols = tableData.response[0];
+
+    if (table && table[0]) {
+        cols = table[0];
     }
 
     const rows = [];
     if (!!cols) {
-        for (let i = 1; i < tableData.response.length; i++) {
-            const rowData: string[] = tableData.response[i];
+        for (let i = 1; i < table.length; i++) {
+            const rowData: string[] = table[i];
 
             let row = {};
             rows.push(row);

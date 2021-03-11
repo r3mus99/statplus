@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { Checkbox, CheckPicker } from "rsuite";
 import { observer } from "mobx-react-lite";
-import { TableDataStore } from "../store/TableDataStore";
-import { useStore } from "../store/Hooks";
-import { TABLE_DATA } from "../store/Stores";
+import { TableDataStore } from "../../store/TableDataStore";
+import { useStore } from "../../store/Hooks";
+import { TABLE_DATA } from "../../store/Stores";
 
 const DimensionPicker = observer(({ dimension }) => {
     const tableData: TableDataStore = useStore(TABLE_DATA);

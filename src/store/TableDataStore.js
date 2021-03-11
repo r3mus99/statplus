@@ -10,8 +10,7 @@ export class TableDataStore {
     selectedDataset: string = "";
     selectedCategories: Map<string, string[]> = new Map();
 
-    datasetNote: string = "";
-    response: any = []; // todo TEMP
+    response: any = undefined; // todo TEMP
 
     constructor() {
         makeAutoObservable(this);
@@ -57,5 +56,17 @@ export class TableDataStore {
 
     setResponse(res: any) {
         this.response = res;
+    }
+
+    getResponseTable() {
+        return !this.response ? [] : this.response.toTable();
+    }
+
+    getResponseNote() {
+        return !this.response ? "" : this.response.note;
+    }
+
+    getResponseIDs() {
+        return !this.response ? [] : this.response.id;
     }
 }
